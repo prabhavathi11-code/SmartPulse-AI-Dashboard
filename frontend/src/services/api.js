@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE = '/api';
+// In production, VITE_API_URL = https://smartpulse-api.onrender.com
+// In development, Vite proxy forwards /api → localhost:8000
+const API_BASE = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api';
 
 const client = axios.create({
   baseURL: API_BASE,
@@ -60,7 +62,11 @@ export const api = {
 
 export function createWebSocketConnection(onMessage, onStatusChange) {
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const wsUrl = `${protocol}//${window.location.host}/ws/live`;
+  // In production use the Render backend WS URL; in dev use Vite proxy
+  const wsHost = import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL.replace('https://', '').replace('http://', '')
+    : window.location.host;
+  const wsUrl = `${protocol}//${wsHost}/ws/live`;
   
   let ws = null;
   let reconnectTimer = null;
