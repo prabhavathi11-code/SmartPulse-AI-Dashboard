@@ -1,0 +1,29 @@
+services:
+  # FastAPI Backend Service with WebSockets
+  - type: web
+    name: smartpulse-api
+    runtime: python
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    rootDir: backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./smartpulse.db
+
+  # React Frontend Static Site
+  - type: static
+    name: smartpulse-dashboard
+    runtime: static
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
+    rootDir: frontend
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: smartpulse-api
+          property: host
