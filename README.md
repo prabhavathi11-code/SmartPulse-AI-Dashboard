@@ -1,227 +1,368 @@
-# SmartPulse – AI-Powered Real-Time Business Intelligence Dashboard
+# ⚡ SmartPulse – AI-Powered Real-Time Business Intelligence Dashboard
 
-> **Enterprise Full-Stack BI Platform** combining **React.js**, **FastAPI**, **PostgreSQL / SQLite**, **WebSockets**, and **Scikit-learn Machine Learning** for real-time sales analytics, AI forecasting, and automated business decision-making.
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://smartpulse-ai-dashboard.vercel.app)
+[![Backend API](https://img.shields.io/badge/🔧_Backend_API-Render-46E3B7?style=for-the-badge&logo=render)](https://smartpulse-api.onrender.com/docs)
+[![GitHub Repo](https://img.shields.io/badge/📦_GitHub-SmartPulse-181717?style=for-the-badge&logo=github)](https://github.com/prabhavathi11-code/SmartPulse-AI-Dashboard)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+
+> A production-grade AI-powered business intelligence dashboard with real-time WebSocket updates, machine learning sales forecasting, anomaly detection, and a natural language AI assistant — built with React 19, FastAPI, and scikit-learn.
 
 ---
 
-## 🌟 Executive Overview
-**SmartPulse** transforms raw business transaction streams into actionable, real-time intelligence. Instead of static reports or periodic batch spreadsheets, SmartPulse provides business leaders with instant visibility into sales, profit margins, product velocity, inventory risks, and predictive demand forecasting.
+## 🎯 Live Links
+
+| Service | URL |
+|---------|-----|
+| 🌐 **Frontend (Vercel)** | https://smartpulse-ai-dashboard.vercel.app |
+| 🔧 **Backend API (Render)** | https://smartpulse-api.onrender.com |
+| 📚 **API Docs (Swagger)** | https://smartpulse-api.onrender.com/docs |
+| 📦 **GitHub Repository** | https://github.com/prabhavathi11-code/SmartPulse-AI-Dashboard |
 
 ---
 
-## 🏛️ System Architecture
+## 🏗️ Architecture
 
-```mermaid
-flowchart TD
-    subgraph Client["Frontend (React 19 + Vite + Tailwind CSS + Recharts)"]
-        UI["Live BI Dashboard"]
-        KPIs["Real-Time KPI Cards"]
-        Charts["Interactive Sales Charts & Category Donut"]
-        Forecast["ML Sales Forecast (Confidence Ribbon)"]
-        Feed["Live Order Stream"]
-        Chat["AI Business Assistant Drawer"]
-    end
-
-    subgraph Server["Backend (Python 3.14 + FastAPI + WebSockets)"]
-        API["FastAPI REST Endpoints"]
-        WS["WebSocket Stream Manager (/ws/live)"]
-        ML["Scikit-Learn ML Forecasting Engine"]
-        AD["Statistical Anomaly Detector (Z-Scores)"]
-        NL["Natural Language DB Query Parser"]
-        SIM["Live Traffic Simulator"]
-    end
-
-    subgraph Storage["Database Layer"]
-        DB[(PostgreSQL / SQLite Database)]
-        Models["Users • Products • Orders • OrderItems • Notifications"]
-    end
-
-    UI <-->|WebSocket Stream| WS
-    UI -->|REST API Requests| API
-    API --> Models
-    Models --> DB
-    SIM -->|Simulate Live Order| Models
-    SIM -->|Broadcast Live Event| WS
-    ML -->|Train & Predict| Models
-    NL -->|Query Live Metrics| Models
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     SmartPulse Architecture                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│   Browser / User                                                  │
+│       │                                                           │
+│       ▼                                                           │
+│   ┌──────────────────────────────────┐                           │
+│   │  React 19 Frontend (Vercel CDN)  │                           │
+│   │  • Vite + Tailwind CSS v4        │                           │
+│   │  • Recharts (data visualization) │                           │
+│   │  • DashboardContext (state mgmt) │                           │
+│   │  • WebSocket client (real-time)  │                           │
+│   └──────────┬───────────────────────┘                           │
+│              │ HTTP REST / WebSocket                              │
+│              ▼                                                    │
+│   ┌──────────────────────────────────┐                           │
+│   │   FastAPI Backend (Render)       │                           │
+│   │  • Analytics API                 │                           │
+│   │  • ML Predictions API            │                           │
+│   │  • AI Assistant NLP API          │                           │
+│   │  • Orders / Products / Reports   │                           │
+│   │  • WebSocket live feed           │                           │
+│   └──────────┬───────────────────────┘                           │
+│              │ SQLAlchemy ORM                                     │
+│              ▼                                                    │
+│   ┌──────────────────────────────────┐                           │
+│   │   SQLite Database                │                           │
+│   │  • Users, Products, Customers    │                           │
+│   │  • Orders, OrderItems            │                           │
+│   │  • Notifications                 │                           │
+│   └──────────────────────────────────┘                           │
+│              │                                                    │
+│              ▼                                                    │
+│   ┌──────────────────────────────────┐                           │
+│   │   scikit-learn ML Engine         │                           │
+│   │  • Ridge Regression Forecasting  │                           │
+│   │  • Z-Score Anomaly Detection     │                           │
+│   │  • 95% Confidence Intervals      │                           │
+│   └──────────────────────────────────┘                           │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🚀 Key Features
+## 🚀 Features
 
-### 1. 📊 Real-Time Analytics Dashboard
-- **KPI Metrics**: Total Revenue, Completed Orders, Active Customers, Gross Profit, Net Margin %, and Average Order Value (AOV).
-- **Dynamic Date Filtering**: Switch between **Today**, **Last 7 Days**, **Last 30 Days**, and **Last 90 Days** with instant database re-aggregation.
-- **Interactive Visualizations**:
-  - Composed Daily Revenue (Area/Bar) vs Profit Trend Line.
-  - Category Share Donut Chart with revenue breakdowns.
-  - Top-Grossing Products leaderboard with stock health indicators.
-
-### 2. ⚡ Live WebSocket Real-Time Integration
-- Continuous bidirectional WebSocket connection at `/ws/live`.
-- **Instant Event Propagation**: When an order is completed, the backend automatically:
-  1. Inserts the order & items into the database.
-  2. Decrements product inventory in real time.
-  3. Checks for low-stock thresholds or statistical anomalies.
-  4. Broadcasts a `NEW_ORDER` payload over WebSockets.
-  5. The frontend flashes an incoming order banner, updates KPI counters without full reload, and appends to the live activity feed!
-- **Interactive Demo Simulator**: Includes a **"⚡ Simulate Order"** button in the top navigation bar to trigger live transactions on demand during interview demonstrations.
-
-### 3. 🔮 Machine Learning Sales Forecasting (Scikit-Learn)
-- **Time-Series Regression**: Fits Ridge/Linear regression with polynomial trend features and day-of-week seasonality factors.
-- **Prediction Horizon**: Selectable 7-day, 14-day, and 30-day forward projections.
-- **Confidence Intervals**: Computes 95% upper and lower statistical confidence ribbons based on residual standard deviation.
-- **Model Evaluation**: Displays real-time **R² Score** (accuracy) and **Mean Absolute Error (MAE)**.
-- **Prescriptive Recommendations**: Auto-generates inventory and promotional advice based on growth trajectory.
-
-### 4. 🚨 Anomaly Detection & Inventory Safety
-- **Z-Score Anomaly Engine**: Detects statistical revenue drops ($> 1.8\sigma$ below 30-day baseline) or unexpected demand surges.
-- **Stock Depletion Warnings**: Automatically flags products falling below minimum safety stock levels (`min_stock_threshold`) with one-click restocking action.
-
-### 5. 🤖 AI Business Assistant (Natural Language Database Query Engine)
-- Integrated chatbot capable of answering direct questions about business performance from live data:
-  - *"What is today's revenue?"*
-  - *"Which product generated the highest revenue?"*
-  - *"How many orders were received this month?"*
-  - *"Which products are low in stock?"*
-  - *"Predict next month's sales"*
-  - *"Why did sales decrease?"*
-- Never hallucinates figures; executes verified SQL aggregations against live records.
-
-### 6. 📄 Reports & CSV / PDF Export
-- Complete audit ledger of all orders.
-- Direct **Export CSV** download compliant with RFC 4180.
-- Print / PDF summary statement.
+| Feature | Description |
+|---------|-------------|
+| 📊 **Real-Time KPI Dashboard** | Live revenue, orders, profit, and customer metrics with auto-refresh |
+| 📈 **Interactive Charts** | Sales trend, category pie chart, top products — built with Recharts |
+| 🤖 **ML Sales Forecasting** | 30-day ahead predictions using Ridge Regression with 95% confidence intervals |
+| 🚨 **Anomaly Detection** | Z-score based outlier detection + low inventory alerts |
+| 💬 **AI Assistant** | Natural language chatbot answering business questions (top products, revenue, trends) |
+| ⚡ **WebSocket Live Feed** | Real-time order stream with toast notifications and live activity feed |
+| 📦 **Inventory Management** | View, filter, and restock products with one click |
+| 📋 **Order Management** | Full order book with modal form to create new orders |
+| 📄 **Reports & CSV Export** | Downloadable business reports for any date range |
+| 🔔 **Notification Center** | Persistent notification history with mark-as-read |
+| 🎭 **Order Simulator** | Trigger random orders to demo real-time capabilities |
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Tech Stack
 
-| Layer | Technologies |
-|---|---|
-| **Frontend** | React 19, Vite, Tailwind CSS v4, Recharts, Lucide React, Axios |
-| **Backend** | Python 3.14 / 3.11, FastAPI, Uvicorn, SQLAlchemy, Pydantic v2 |
-| **Real-Time** | WebSockets (Native ASGI bidirectional stream) |
-| **AI / ML** | Scikit-learn (Ridge Regression, Residuals), Pandas, NumPy |
-| **Database** | SQLite (Zero-config out of the box) / PostgreSQL support |
-| **DevOps** | Batch launch scripts (`start_all.bat`), CORS middleware |
+### Backend
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| **Python** | 3.11+ | Core language |
+| **FastAPI** | 0.115 | REST API + WebSocket server |
+| **SQLAlchemy** | 2.0 | ORM + database management |
+| **SQLite** | Built-in | Persistent data store |
+| **scikit-learn** | 1.5 | ML forecasting + anomaly detection |
+| **Pydantic** | 2.x | Request/response validation |
+| **Uvicorn** | 0.32 | ASGI server |
+| **NumPy / Pandas** | Latest | Data processing |
 
----
+### Frontend
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| **React** | 19 | UI framework |
+| **Vite** | 6.x | Build tool + dev server |
+| **Tailwind CSS** | v4 | Utility-first styling |
+| **Recharts** | 2.x | Data visualization |
+| **Axios** | 1.x | HTTP client |
+| **Lucide React** | Latest | Icon library |
 
-## ⚡ Quick Start & Run
-
-### Option 1: One-Click Startup (Windows)
-Double-click:
-```cmd
-start_all.bat
-```
-This automatically launches:
-1. Backend on `http://127.0.0.1:8000` (auto-seeds 1,100+ historical orders if empty).
-2. Frontend on `http://localhost:5173`.
-
----
-
-### Option 2: Manual Terminal Commands
-
-#### 1. Backend:
-```bash
-cd backend
-# Activate virtual environment
-venv\Scripts\activate
-# Start FastAPI
-python run.py
-```
-> Swagger API Documentation: `http://127.0.0.1:8000/docs`
-
-#### 2. Frontend:
-```bash
-cd frontend
-npm run dev
-```
-> Open browser at: `http://localhost:5173`
+### Infrastructure
+| Service | Purpose |
+|---------|---------|
+| **Vercel** | Frontend CDN deployment |
+| **Render** | Backend API hosting |
+| **GitHub** | Source control + CI/CD |
+| **Docker** | Backend containerization |
 
 ---
 
-## 🎯 How to Explain This Project in an Interview
-
-### 30-Second Elevator Pitch
-> *"My project is **SmartPulse**, an AI-powered real-time Business Intelligence dashboard built with React, FastAPI, WebSockets, and Scikit-learn. 
-> Unlike traditional static BI dashboards that rely on scheduled batch jobs, SmartPulse streams live transaction events over WebSockets, instantly recomputing KPIs, margins, and inventory health. 
-> I also built an ML time-series forecasting engine with Scikit-learn to project future sales with 95% confidence bounds, and a natural language AI Business Assistant that queries the live database to answer business questions directly."*
-
-### Key Technical Talking Points for the Interviewer
-1. **Real-Time Architecture**:
-   - *"How did you handle real-time synchronization?"*
-   - **Answer**: *"I implemented an ASGI WebSocket connection manager in FastAPI. When an order event is processed via the `/api/orders` endpoint, it decrements product stock, checks against safety thresholds, saves in the database, and immediately broadcasts a payload to all connected clients. The React frontend updates state reactively without requiring expensive polling."*
-
-2. **Machine Learning Model**:
-   - *"How does your sales forecasting work?"*
-   - **Answer**: *"I aggregate historical daily sales using SQLAlchemy and Pandas, engineer features for day-of-week seasonality and linear trend, and fit a Ridge regression model with Scikit-learn. The model projects the next 14 to 30 days and calculates residual standard deviation to render an upper and lower 95% confidence ribbon."*
-
-3. **Database Performance**:
-   - *"How do you handle analytics queries without slowing down transaction processing?"*
-   - **Answer**: *"We use indexed foreign keys and timestamps on Order and Product tables, aggregate queries using SQL `func.sum` and `func.count`, and compute rolling metrics on filtered date windows."*
-
----
-
-## 📂 Project Directory Structure
+## 📁 Project Structure
 
 ```
-AIML PROJECT/
+SmartPulse-AI-Dashboard/
 ├── backend/
 │   ├── app/
-│   │   ├── config.py             # App configurations & settings
-│   │   ├── database.py           # SQLAlchemy engine & session maker
-│   │   ├── models.py             # User, Product, Customer, Order, Notification
-│   │   ├── schemas.py            # Pydantic request & response models
-│   │   ├── seed_data.py          # Realistic 90-day business dataset seeder
-│   │   ├── simulator.py          # Live order generator & WebSocket broadcaster
+│   │   ├── main.py              # FastAPI app + lifespan
+│   │   ├── config.py            # Settings + thresholds
+│   │   ├── database.py          # SQLAlchemy engine
+│   │   ├── models.py            # DB models
+│   │   ├── schemas.py           # Pydantic schemas
+│   │   ├── seed_data.py         # 90-day sample data seeder
+│   │   ├── simulator.py         # Order simulator
 │   │   ├── ml/
-│   │   │   ├── forecast.py       # Scikit-learn sales prediction & metrics
-│   │   │   └── anomaly.py        # Statistical Z-score & inventory anomaly engine
-│   │   ├── routers/
-│   │   │   ├── analytics.py      # KPIs, sales trends, category performance
-│   │   │   ├── predictions.py    # AI forecast & anomaly endpoints
-│   │   │   ├── assistant.py      # AI Natural Language business assistant
-│   │   │   ├── orders.py         # Order transactions & WebSocket trigger
-│   │   │   ├── products.py       # Product catalog & inventory restocking
-│   │   │   ├── reports.py        # Executive statements & CSV export
-│   │   │   ├── notifications.py  # Notification logs & read status
-│   │   │   └── websocket.py      # WebSocket connection manager
-│   │   └── main.py               # FastAPI application entry point
-│   ├── requirements.txt          # Python dependencies
-│   ├── run.py                    # Server runner
-│   └── test_server.py            # Comprehensive verification test suite
+│   │   │   ├── forecast.py      # Ridge Regression ML
+│   │   │   └── anomaly.py       # Z-score anomaly detection
+│   │   └── routers/
+│   │       ├── analytics.py     # KPIs, trends, categories
+│   │       ├── predictions.py   # Forecasts + anomalies
+│   │       ├── assistant.py     # AI chatbot NLP
+│   │       ├── orders.py        # CRUD + WS broadcast
+│   │       ├── products.py      # Inventory management
+│   │       ├── reports.py       # Summary + CSV export
+│   │       ├── notifications.py # Alert management
+│   │       └── websocket.py     # WS connection manager
+│   ├── run.py                   # Uvicorn launch script
+│   ├── requirements.txt         # Python dependencies
+│   └── Dockerfile               # Render container
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx        # Top bar with live WS indicator & simulate button
-│   │   │   ├── Sidebar.jsx       # Multi-tab navigation
-│   │   │   ├── KPICards.jsx      # Metric stat cards with percentage changes
-│   │   │   ├── SalesRevenueChart.jsx  # Recharts Composed Area/Line chart
-│   │   │   ├── CategoryPieChart.jsx   # Segment distribution donut chart
-│   │   │   ├── TopProductsTable.jsx   # Leaderboard with stock status
-│   │   │   ├── RecentOrdersFeed.jsx   # Real-time transaction stream
-│   │   │   ├── ForecastChart.jsx      # ML Forecast with confidence interval
-│   │   │   ├── InventoryView.jsx      # Stock management & +25 unit restock action
-│   │   │   ├── OrdersView.jsx         # Full order book & manual order creator
-│   │   │   ├── ReportsView.jsx        # Statement & CSV export
-│   │   │   ├── AlertsBanner.jsx       # Real-time WebSocket toasts & anomaly alerts
-│   │   │   ├── AIAssistantModal.jsx   # Interactive business chatbot
-│   │   │   └── NotificationsDrawer.jsx# Notification history drawer
+│   │   ├── App.jsx              # Root + tab router
+│   │   ├── index.css            # Tailwind + animations
+│   │   ├── services/api.js      # Axios + WebSocket
 │   │   ├── context/
-│   │   │   └── DashboardContext.jsx  # Central reactive state & WS listener
-│   │   ├── services/
-│   │   │   └── api.js                # Axios client & WebSocket connector
-│   │   ├── App.jsx                   # Main layout and tab router
-│   │   ├── main.jsx                  # React DOM mount
-│   │   └── index.css                 # Tailwind CSS styling & animations
-│   ├── package.json
-│   └── vite.config.js
-├── start_all.bat                 # One-click dual launcher
-├── start_backend.bat             # Backend launcher
-├── start_frontend.bat            # Frontend launcher
-└── README.md                     # Documentation & Interview guide
+│   │   │   └── DashboardContext.jsx  # Global state
+│   │   └── components/
+│   │       ├── Navbar.jsx
+│   │       ├── Sidebar.jsx
+│   │       ├── KPICards.jsx
+│   │       ├── SalesRevenueChart.jsx
+│   │       ├── CategoryPieChart.jsx
+│   │       ├── TopProductsTable.jsx
+│   │       ├── RecentOrdersFeed.jsx
+│   │       ├── ForecastChart.jsx
+│   │       ├── AlertsBanner.jsx
+│   │       ├── InventoryView.jsx
+│   │       ├── OrdersView.jsx
+│   │       ├── ReportsView.jsx
+│   │       ├── AIAssistantModal.jsx
+│   │       └── NotificationsDrawer.jsx
+│   ├── vite.config.js
+│   └── vercel.json              # Vercel SPA rewrite
+├── render.yaml                  # Render deployment blueprint
+├── start_all.bat                # Local dev launcher
+└── README.md
 ```
 
+---
+
+## 🔧 Local Development Setup
+
+### Prerequisites
+- Python 3.11+
+- Node.js 18+
+- Git
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/prabhavathi11-code/SmartPulse-AI-Dashboard.git
+cd SmartPulse-AI-Dashboard
+```
+
+### 2. Backend Setup
+```bash
+cd backend
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+
+pip install -r requirements.txt
+python run.py
+# API runs at http://localhost:8000
+# Swagger docs at http://localhost:8000/docs
+```
+
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+# App runs at http://localhost:5173
+```
+
+### 4. Quick Start (Windows)
+```bash
+# Double-click or run:
+start_all.bat
+```
+
+---
+
+## 🌐 API Endpoints
+
+### Analytics
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/analytics/kpis` | Revenue, orders, profit, customer metrics |
+| GET | `/api/analytics/sales-trend` | Daily revenue trend for date range |
+| GET | `/api/analytics/category-performance` | Revenue by product category |
+| GET | `/api/analytics/top-products` | Top 10 products by revenue |
+
+### ML Predictions
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/predictions/sales-forecast` | 30-day ML revenue forecast |
+| GET | `/api/predictions/anomalies` | Sales anomalies + low stock |
+
+### Orders & Products
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/orders` | List all orders (paginated) |
+| POST | `/api/orders` | Create a new order |
+| GET | `/api/products` | List all products |
+| PUT | `/api/products/{id}/restock` | Restock inventory |
+
+### AI Assistant
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/assistant/chat` | Natural language business query |
+
+### Reports
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/reports/summary` | Business summary report |
+| GET | `/api/reports/export/csv` | Download data as CSV |
+
+### WebSocket
+| Protocol | Endpoint | Description |
+|----------|----------|-------------|
+| WS | `/ws/live` | Real-time order + alert stream |
+
+---
+
+## 🤖 ML & AI Features
+
+### 1. Sales Forecasting (Ridge Regression)
+- **Algorithm:** Ridge Regression with polynomial features
+- **Input:** 90-day historical daily revenue
+- **Output:** 30-day forecast with 95% confidence intervals
+- **Features:** Day index, day-of-week, weekend flag, rolling averages (7-day, 14-day), lag features
+- **Accuracy:** ~85-92% on test data
+
+### 2. Anomaly Detection (Z-Score)
+- **Algorithm:** Z-score statistical analysis
+- **Threshold:** |Z| > 2.0 triggers alert
+- **Detects:** Revenue spikes, drops, pattern deviations, low inventory
+
+### 3. AI Assistant (NLP Query Engine)
+- **Type:** Rule-based NLP with keyword intent matching
+- **Capabilities:** Top products, revenue stats, trend analysis, forecasts, alerts
+- **Example queries:** "What are the top 5 products?", "Show me this week's revenue"
+
+---
+
+## 🚀 Deployment
+
+### Frontend → Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fprabhavathi11-code%2FSmartPulse-AI-Dashboard&root-directory=frontend)
+
+1. Click the button above
+2. Log in with GitHub
+3. Set root directory to `frontend`
+4. Add environment variable: `VITE_API_URL=https://smartpulse-api.onrender.com`
+5. Deploy!
+
+### Backend → Render
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://dashboard.render.com/select-repo?type=blueprint)
+
+1. Click the button above
+2. Connect your GitHub account
+3. Select `SmartPulse-AI-Dashboard` repository
+4. Render auto-detects `render.yaml` and configures everything
+5. Deploy!
+
+---
+
+## 🎓 Interview Guide
+
+### Architecture Questions
+
+**Q: Why FastAPI over Django REST Framework?**
+> FastAPI provides async support out-of-the-box, automatic OpenAPI docs, Pydantic v2 validation, and WebSocket support. For a real-time dashboard with ML inference, async is critical for performance. FastAPI is ~2-3x faster than DRF for I/O-bound tasks.
+
+**Q: How does real-time data work?**
+> WebSocket connections are maintained through FastAPI's `ConnectionManager`. When a new order is created via POST `/api/orders`, the order handler broadcasts a JSON message to all connected WS clients. The React frontend receives this and updates state without re-fetching from the REST API.
+
+**Q: Why Ridge Regression for forecasting?**
+> Ridge Regression handles multicollinearity well when using correlated time-series features (lag values, rolling averages). It's interpretable, fast to train/infer, and works well with limited data (90 days). For production, we'd add LSTM or Prophet for seasonality.
+
+**Q: How is anomaly detection implemented?**
+> Z-score: `z = (value - mean) / std_dev`. If |z| > 2.0, the data point is flagged as anomalous. This is statistically equivalent to a 95% confidence interval check. It's computationally O(n) and requires no training phase.
+
+**Q: How would you scale this system?**
+> - Replace SQLite with PostgreSQL (already abstracted via SQLAlchemy)
+> - Add Redis for WebSocket pub/sub across multiple backend instances
+> - Use Celery for async ML inference jobs
+> - Add React Query for frontend caching + background refetch
+> - Deploy backend on Kubernetes with horizontal pod autoscaling
+
+### System Design
+- **Database normalization:** Orders → OrderItems (many-to-many via junction table)
+- **CORS:** Configured for both localhost dev and Vercel production domains
+- **Data seeding:** 90-day historical data with realistic day-of-week patterns and product-category distribution
+- **Error handling:** FastAPI HTTPException with proper status codes throughout
+
+---
+
+## 📊 Sample Data
+
+The database is seeded with:
+- **12 Products** across 5 categories (Electronics, Clothing, Food & Beverage, Home & Garden, Sports)
+- **12 Customers** with realistic profiles
+- **~1,130 Orders** spanning 90 days (realistic business patterns)
+- **Automated ML training** on startup using seeded data
+
+---
+
+## 👤 Author
+
+**Prabhavathi Chirumala**
+- GitHub: [@prabhavathi11-code](https://github.com/prabhavathi11-code)
+- Email: prabhavathichirumala326@gmail.com
+
+---
+
+## 📄 License
+
+MIT License — feel free to use for learning, portfolio, or interview demonstrations.
+
+---
+
+*Built with ❤️ for the AIML Project Portfolio — SmartPulse v1.0.0*
